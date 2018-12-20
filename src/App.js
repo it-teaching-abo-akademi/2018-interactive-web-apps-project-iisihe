@@ -65,7 +65,7 @@ class PortfolioController extends Component {
         name: this.state.newPortfolio,
         stocks: [],
         changeRate: 1,
-        currency: "EUR",
+        currency: "USD",
         stockfield: "stock" + this.state.newPortfolio,
         quantityfield: "quantity" + this.state.newPortfolio,
         deletefield: "delete" + this.state.newPortfolio,
@@ -109,7 +109,7 @@ class PortfolioController extends Component {
       }
     }
     var changeRate = portfolios[index].changeRate;
-    if (portfolios[index].currency === "EUR") {
+    if (portfolios[index].currency === "USD") {
       changeRate = 1;
     }
     var found = false;
@@ -247,14 +247,18 @@ class PortfolioController extends Component {
     // Go through all portfolios
     for (var i=0; i<portfolios.length; i++) {
       var valueOfStocks = 0;
+      var changeRate = 1;
+      if (portfolios[i].currency === 'EUR') {
+        changeRate = portfolios[i].changeRate
+      }
       // Go through all stocks
       for (var j=0; j<portfolios[i].stocks.length; j++) {
         var unitValue = await this.getData(portfolios[i].stocks[j].id);
         const updatedStock = {
           "id": portfolios[i].stocks[j].id,
-          "unitValue": (unitValue*portfolios[i].changeRate).toFixed(2),
+          "unitValue": (unitValue*changeRate).toFixed(2),
           "quantity": portfolios[i].stocks[j].quantity,
-          "totalValue": (unitValue*portfolios[i].stocks[j].quantity*portfolios[i].changeRate).toFixed(2)
+          "totalValue": (unitValue*portfolios[i].stocks[j].quantity*changeRate).toFixed(2)
         };
         valueOfStocks = (parseFloat(valueOfStocks) + parseFloat(updatedStock.totalValue)).toFixed(2);
         portfolios[i].stocks[j] = updatedStock;
@@ -358,7 +362,7 @@ class Portfolio extends Component {
       var dataset = [];
 
       var changeRate = 1;
-      if (this.props.currency === 'USD') {
+      if (this.props.currency === 'EUR') {
         changeRate = this.props.portfolioChangeRate;
       }
 
