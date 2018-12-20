@@ -14,7 +14,7 @@
 importScripts("https://storage.googleapis.com/workbox-cdn/releases/3.6.3/workbox-sw.js");
 
 importScripts(
-  "/2018-interactive-web-apps-project-iisihe/precache-manifest.cce7f723ae424606a51258b79b962d7c.js"
+  "/2018-interactive-web-apps-project-iisihe/precache-manifest.f6397bb1fd7a48f6c2f5ffaf9294ce35.js"
 );
 
 workbox.clientsClaim();
